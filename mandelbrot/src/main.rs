@@ -5,8 +5,10 @@ use std::fs::File;
 use std::io::Result;
 use std::io::Write;
 use std::str::FromStr;
-
+use std::time::Instant;
 fn main() {
+    let now = Instant::now();
+
     let args: Vec<String> = std::env::args().collect();
     if args.len() != 5 {
         writeln!(
@@ -39,8 +41,9 @@ fn main() {
                 let top = rows_per_band * i;
                 let height = band.len() / bounds.0;
                 let band_bounds = (bounds.0, height);
-                let band_upper_left = pixel_to_point(bounds, (0,top), upper_left, lower_right);
-                let band_lower_right = pixel_to_point(bounds, (bounds.0, top + height), upper_left, lower_right);
+                let band_upper_left = pixel_to_point(bounds, (0, top), upper_left, lower_right);
+                let band_lower_right =
+                    pixel_to_point(bounds, (bounds.0, top + height), upper_left, lower_right);
 
                 spawner.spawn(move || {
                     render(band, band_bounds, band_upper_left, band_lower_right);
@@ -50,6 +53,11 @@ fn main() {
     }
 
     write_image(&args[1], &pixels, bounds).expect("error writing PNG file");
+
+    println!(
+        "Image {} written in {} milliseconds",
+        args[2],
+        now.elapsed().as_millis());
 }
 
 fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
