@@ -1,5 +1,5 @@
 pub struct Stem {
-    pub furled: bool
+    pub furled: bool,
 }
 
-pub type = StemSet : Vec<Stem>;
+pub type StemSet = Vec<Stem>;
