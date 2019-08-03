@@ -3,6 +3,11 @@ name = "fern_sim"
 version = "0.1.0"
 authors = ["Carlos Landeras <carlos.landeras@gmail.com>"]
 edition = "2018"
+license = "MIT"
+homepage = "https://fernsim.examples.com/"
+repository = "https://gitlair.com/sporeador/fern_sim"
+documentation = "https://fernsim.examples.com/docs"
+description = "A fern simulator"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
