@@ -98,6 +98,11 @@ fn user_add_test() {
     assert_eq!(user_sum.name, "Carlos Pedro".to_string());
     assert_eq!(user_sum.age, 54);
 
+}
+
+#[test]
+fn user_eq_test() {
+
     let user3 =  User { name: "Pedro".to_string(), age: 20};
     let user4 =  User { name: "Pedro".to_string(), age: 20};
 
