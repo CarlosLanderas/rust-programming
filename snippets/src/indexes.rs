@@ -23,3 +23,10 @@ impl<P> Index<usize> for Image<P> {
         &self.pixels[start .. start + self.width]
     }
 }
+
+impl<P> IndexMut<usize> for Image<P> {
+    fn index_mut(&mut self, row: usize) -> &mut [P] {
+        let start = row * self.width;
+        &mut self.pixels[start .. start + self.width]
+    }
+}
