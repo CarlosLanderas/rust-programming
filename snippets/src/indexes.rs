@@ -1,6 +1,7 @@
 use std::vec::Vec;
 use std::ops::{Index, IndexMut};
 
+#[derive(PartialEq)]
 struct Image<P> {
     width: usize,
     pixels: Vec<P>
@@ -29,4 +30,20 @@ impl<P> IndexMut<usize> for Image<P> {
         let start = row * self.width;
         &mut self.pixels[start .. start + self.width]
     }
+}
+
+
+#[test]
+fn image_index_test() {
+    let mut img = Image::new(5, 5);
+    img[0][0] = 3;
+    img[0][1] = 4;
+    img[1][0] = 15;
+    img[2][1] = 20;
+
+    let pixels = &img.pixels;
+    assert_eq!(pixels[0], 3);
+    assert_eq!(pixels[1], 4);
+    assert_eq!(pixels[5], 15);
+    assert_eq!(pixels[11], 20);
 }
