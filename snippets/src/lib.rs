@@ -1,3 +1,4 @@
+pub mod operators;
 use std::ops::{Mul, Add};
 
 pub fn dot<N>(v1: &[N], v2: &[N]) -> N
