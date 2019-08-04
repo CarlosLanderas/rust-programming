@@ -44,6 +44,24 @@ impl Ord for Money {
     }
 }
 
+impl Eq for Money{}
+
+
+pub struct User {
+    pub name: String,
+    pub age: usize
+}
+
+
+impl Add for User {
+    type Output = Self;
+      fn add(self, other: Self) -> Self {
+          Self {
+              name : self.name.add(" ").add(&other.name),
+              age: self.age + other.age
+          }
+      }
+}
 
 #[test]
 fn money_add_test() {
@@ -61,4 +79,14 @@ fn money_add_test() {
     assert_eq!(moneyvec,
             vec![Money{symbol: "€".to_string(), value: 10.0},
             Money{symbol : "€".to_string(), value : 20.5}]);
+}
+
+#[test]
+fn user_add_test() {
+    let user1 = User { name: "Carlos".to_string(), age: 34};
+    let user2 = User { name: "Pedro".to_string(), age: 20};
+
+    let user_sum = user1 + user2;
+    assert_eq!(user_sum.name, "Carlos Pedro".to_string());
+    assert_eq!(user_sum.age, 54);
 }
