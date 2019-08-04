@@ -1,5 +1,6 @@
 use std::ops::Add;
 use std::cmp::{PartialEq,PartialOrd, Ord, Ordering, Eq};
+use std::fmt;
 
 #[derive(Debug)]
 pub struct Money {
@@ -46,7 +47,7 @@ impl Ord for Money {
 
 impl Eq for Money{}
 
-
+#[derive(PartialEq)]
 pub struct User {
     pub name: String,
     pub age: usize
@@ -62,6 +63,13 @@ impl Add for User {
           }
       }
 }
+
+impl fmt::Debug for User {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+      write!(f, "Name: {}, Age: {}", self.name, self.age)
+    }
+}
+
 
 #[test]
 fn money_add_test() {
@@ -89,4 +97,10 @@ fn user_add_test() {
     let user_sum = user1 + user2;
     assert_eq!(user_sum.name, "Carlos Pedro".to_string());
     assert_eq!(user_sum.age, 54);
+
+    let user3 =  User { name: "Pedro".to_string(), age: 20};
+    let user4 =  User { name: "Pedro".to_string(), age: 20};
+
+    //This works because User implements Debug trait
+    assert_eq!(user3, user4);
 }
