@@ -70,7 +70,6 @@ impl fmt::Debug for User {
     }
 }
 
-
 #[test]
 fn money_add_test() {
 
