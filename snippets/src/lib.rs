@@ -1,3 +1,4 @@
+pub mod closures;
 pub mod cow;
 pub mod generic_operators;
 pub mod indexes;
