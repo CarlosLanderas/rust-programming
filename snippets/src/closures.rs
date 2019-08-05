@@ -32,6 +32,10 @@ where
     count
 }
 
+fn belongs_to_country(country: String) -> impl Fn(&City) -> bool {
+    move |city| city.country.to_lowercase() == country.to_lowercase()
+}
+
 #[test]
 fn should_sort_by_key() {
     let city2 = City::new("Toro", 9000, "Spain");
@@ -60,6 +64,12 @@ fn closures_test() {
     let total_cities = count_selected_cities(&cities, |city| city.population > limit);
     let end_with_cities = count_selected_cities(&cities, |city| city.name.ends_with("n"));
 
+    let country = String::from("stonk");
+
+    let belongs_func = belongs_to_country(country);
+    let cities_belong_to = count_selected_cities(&cities, belongs_func);
+
     assert_eq!(total_cities, 1);
     assert_eq!(end_with_cities, 2);
+    assert_eq!(cities_belong_to, 1);
 }
