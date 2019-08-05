@@ -58,5 +58,8 @@ fn closures_test() {
 
     let limit = 500000;
     let total_cities = count_selected_cities(&cities, |city| city.population > limit);
+    let end_with_cities = count_selected_cities(&cities, |city| city.name.ends_with("n"));
+
     assert_eq!(total_cities, 1);
+    assert_eq!(end_with_cities, 2);
 }
