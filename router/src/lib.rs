@@ -80,14 +80,17 @@ fn test_router() {
 
         *callback_called.borrow_mut() = true;
 
+        let mut response = String::from("Hello ");
+        response.push_str(&String::from_utf8_lossy(&request.body[..]));
+
         Response {
             code: 200,
             headers: HashMap::new(),
-            body: Vec::new(),
+            body: response.as_bytes().to_vec()
         }
     });
 
-    router.handle_request(&Request {
+    let resp = router.handle_request(&Request {
         url: "/hello".to_string(),
         method: "POST".to_string(),
         body: "This is superman!".as_bytes().to_vec(),
@@ -95,5 +98,6 @@ fn test_router() {
     });
 
     assert_eq!(*assertion.borrow(), true);
+    assert_eq!(String::from_utf8(resp.body).unwrap(), "Hello This is superman!");
 
 }
