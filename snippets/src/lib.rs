@@ -2,6 +2,7 @@ pub mod closures;
 pub mod cow;
 pub mod generic_operators;
 pub mod indexes;
+pub mod iterators;
 pub mod operators;
 
 use std::ops::{Add, Mul};
