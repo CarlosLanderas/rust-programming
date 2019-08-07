@@ -5,3 +5,4 @@ pub mod peekable;
 pub mod scan;
 pub mod skip_take;
 pub mod zip;
+pub mod by_ref;
