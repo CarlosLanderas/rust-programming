@@ -3,3 +3,4 @@ pub mod map_filter;
 pub mod peekable;
 pub mod scan;
 pub mod skip_take;
+pub mod chain;
