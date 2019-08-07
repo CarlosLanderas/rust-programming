@@ -7,3 +7,4 @@ pub mod skip_take;
 pub mod zip;
 pub mod by_ref;
 pub mod cycle;
+pub mod consumer;
