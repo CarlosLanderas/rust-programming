@@ -26,5 +26,5 @@ fn binary_pop_with_let_test() {
         results.push(value)
     }
 
-    assert_eq!(results, vec!["r","c", "a"])
+    assert_eq!(results, vec!["r", "c", "a"])
 }

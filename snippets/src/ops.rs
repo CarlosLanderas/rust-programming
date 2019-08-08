@@ -1,4 +1,3 @@
-
 use std::ops::{Add, Mul};
 
 pub fn dot<N>(v1: &[N], v2: &[N]) -> N

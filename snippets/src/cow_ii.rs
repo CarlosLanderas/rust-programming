@@ -14,13 +14,12 @@ fn cow_owned_test() {
 
     let r = get_name();
     assert_eq!(r, "Lande");
- }
+}
 
 #[test]
- fn cow_borrow_test() {
-     std::env::remove_var("YOUR_NAME");
+fn cow_borrow_test() {
+    std::env::remove_var("YOUR_NAME");
 
-     let r = get_name();
-     assert_eq!(r, "whoever you are");
- }
-
+    let r = get_name();
+    assert_eq!(r, "whoever you are");
+}
