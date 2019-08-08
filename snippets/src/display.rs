@@ -10,13 +10,17 @@ impl fmt::Display for Complex {
         let i_sign = if self.im < 0.0 { '-' } else { '+' };
 
         if dest.alternate() {
-            write!(dest, "The real part is {}\r\n\
-                          The imaginary part is {} {}i", self.re, i_sign, f64::abs(self.im))
-        }
-        else {
+            write!(
+                dest,
+                "The real part is {}\r\n\
+                 The imaginary part is {} {}i",
+                self.re,
+                i_sign,
+                f64::abs(self.im)
+            )
+        } else {
             write!(dest, "{} {} {}i", self.re, i_sign, f64::abs(self.im))
         }
-
     }
 }
 
@@ -36,7 +40,10 @@ fn display_trait_test() {
 
     assert_eq!(format!("{}", complex2), "3.4 - 0.444i");
 
-    assert_eq!(format!("{:#}", complex2), "The real part is 3.4\r\nThe imaginary part is - 0.444i");
+    assert_eq!(
+        format!("{:#}", complex2),
+        "The real part is 3.4\r\nThe imaginary part is - 0.444i"
+    );
 
     println!("{}", complex2);
     println!("{:#}", complex2);
