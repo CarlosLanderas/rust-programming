@@ -7,6 +7,7 @@ pub mod filter_map_flat_map;
 pub mod find;
 pub mod fold;
 pub mod iterator;
+pub mod iterator_ii;
 pub mod map_filter;
 pub mod nth_last;
 pub mod peekable;

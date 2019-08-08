@@ -2,7 +2,6 @@ use std::borrow::Cow;
 use std::iter::FromIterator;
 
 #[derive(Debug, Clone, PartialEq)]
-
 struct Country<'a> {
     name: Cow<'a, str>,
     cities: Vec<Cow<'a, str>>,
@@ -35,9 +34,11 @@ impl<'a> IntoIterator for Country<'a> {
     }
 }
 
-impl<'a> FromIterator<Cow<'a,str>> for Country<'a> {
-    fn from_iter<I>(iter : I) -> Self
-    where I: IntoIterator<Item=Cow<'a, str>> {
+impl<'a> FromIterator<Cow<'a, str>> for Country<'a> {
+    fn from_iter<I>(iter: I) -> Self
+    where
+        I: IntoIterator<Item = Cow<'a, str>>,
+    {
         let mut data = Self::new("Restored");
         for elem in iter {
             data.add_city(elem);
@@ -48,16 +49,13 @@ impl<'a> FromIterator<Cow<'a,str>> for Country<'a> {
 }
 
 #[test]
-fn from_iterator_test() {
-
+fn from_and_into_iterator_test() {
     let mut country = Country::new("Spain");
     country.add_city("Madrid");
     country.add_city("Barcelona".to_string());
     country.add_city("Cadiz".to_string());
 
     let mut results = vec![];
-
-
 
     for city in country.clone().into_iter() {
         results.push(city);
@@ -68,8 +66,15 @@ fn from_iterator_test() {
     let it = country.into_iter();
     let c = Country::from_iter(it);
 
-    assert_eq!(c,
-        Country{ name: Cow::Borrowed("Restored"),
-        cities: vec![Cow::Borrowed("Madrid"), Cow::Borrowed("Barcelona"), Cow::Borrowed("Cadiz")]});
-
+    assert_eq!(
+        c,
+        Country {
+            name: Cow::Borrowed("Restored"),
+            cities: vec![
+                Cow::Borrowed("Madrid"),
+                Cow::Borrowed("Barcelona"),
+                Cow::Borrowed("Cadiz")
+            ]
+        }
+    );
 }
