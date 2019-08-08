@@ -11,4 +11,4 @@ pub mod consumer;
 pub mod any_all;
 pub mod position;
 pub mod fold;
-pub mod nth;
+pub mod nth_last;
