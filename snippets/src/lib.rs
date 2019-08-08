@@ -8,3 +8,4 @@ pub mod iterators;
 pub mod operators;
 pub mod hashing;
 pub mod ops;
+pub mod display;
