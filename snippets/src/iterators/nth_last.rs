@@ -1,6 +1,6 @@
 #[test]
 fn nth_consumer_test() {
-    let mut squares = (0..10).map(|i| i*i);
+    let mut squares = (0..10).map(|i| i * i);
     assert_eq!(squares.nth(4), Some(16));
     assert_eq!(squares.nth(0), Some(25));
     assert_eq!(squares.nth(6), None);
@@ -19,5 +19,5 @@ fn nth_consumer_test_2() {
 #[test]
 
 fn last_consumer_test() {
-    assert_eq!((0..8+1).map(|n| n*n).last(), Some(64));
+    assert_eq!((0..8 + 1).map(|n| n * n).last(), Some(64));
 }

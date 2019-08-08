@@ -1,4 +1,3 @@
-
 #[test]
 fn by_ref_test() {
     use std::collections::HashMap;
@@ -15,5 +14,4 @@ fn by_ref_test() {
     for _ in lines {
         assert!(true);
     }
-
 }
