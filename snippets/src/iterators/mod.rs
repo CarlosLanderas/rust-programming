@@ -8,3 +8,4 @@ pub mod zip;
 pub mod by_ref;
 pub mod cycle;
 pub mod consumer;
+pub mod any_all;
