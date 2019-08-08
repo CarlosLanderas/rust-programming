@@ -8,6 +8,7 @@ pub struct Complex {
 impl fmt::Display for Complex {
     fn fmt(&self, dest: &mut fmt::Formatter) -> fmt::Result {
         let i_sign = if self.im < 0.0 { '-' } else { '+' };
+
         if dest.alternate() {
             write!(dest, "The real part is {}\r\n\
                           The imaginary part is {} {}i", self.re, i_sign, f64::abs(self.im))
