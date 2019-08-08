@@ -9,3 +9,4 @@ pub mod by_ref;
 pub mod cycle;
 pub mod consumer;
 pub mod any_all;
+pub mod position;
