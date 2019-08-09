@@ -8,6 +8,11 @@
     {
       "name": "Thunder bluff",
       "population": 3000
+    },
+    {
+      "name": "Undercity",
+      "population": 2000
     }
-  ]
+  ],
+  "totalCities": 3
 }

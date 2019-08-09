@@ -3,16 +3,15 @@ extern crate serde_derive;
 
 use serde::{Deserialize, Serialize};
 use serde_json::Serializer;
+use serialization::{City, Faction};
 use std::collections::HashMap;
+use std::fmt::Debug;
 use std::io;
 use std::io::prelude::*;
-use std::fmt::Debug;
-use serialization::{Faction, City};
 
 type RoomId = String;
 type RoomExists = Vec<(char, RoomId)>;
 type RoomMap = HashMap<RoomId, RoomExists>;
-
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Weapon {
@@ -28,7 +27,6 @@ struct Player {
     weapon: Weapon,
 }
 
-
 fn main() {
     serialize_custom_struct();
     serialize_to_file();
@@ -39,6 +37,7 @@ fn serialize_custom_struct() {
     let mut faction = Faction::new("Horde".to_string());
     faction.add_city("Orgrimmar".to_string(), 4000);
     faction.add_city("Thunder bluff".to_string(), 3000);
+    faction.add_city("Undercity".to_string(), 2000);
 
     let json = faction.as_json().unwrap();
 
@@ -55,13 +54,19 @@ fn serialize_to_file() {
         location: "Wetlands".to_string(),
         faction: "Horde".to_string(),
         health: 80,
-        weapon: Weapon{ name: "Bastard Sword".to_string(), damage: 200},
+        weapon: Weapon {
+            name: "Bastard Sword".to_string(),
+            damage: 200,
+        },
     });
     players.push(Player {
         location: "Ironforge".to_string(),
         faction: "Alliance".to_string(),
         health: 100,
-        weapon: Weapon{ name: "Venom Bow".to_string(), damage: 380},
+        weapon: Weapon {
+            name: "Venom Bow".to_string(),
+            damage: 380,
+        },
     });
 
     let serialized_players = serde_json::to_string_pretty(&players).unwrap();
