@@ -7,6 +7,7 @@ use std::collections::HashMap;
 use std::io;
 use std::io::prelude::*;
 use std::fmt::Debug;
+use serialization::{Faction, City};
 
 type RoomId = String;
 type RoomExists = Vec<(char, RoomId)>;
@@ -29,8 +30,23 @@ struct Player {
 
 
 fn main() {
+    serialize_custom_struct();
     serialize_to_file();
     serialize_to_stdout();
+}
+
+fn serialize_custom_struct() {
+    let mut faction = Faction::new("Horde".to_string());
+    faction.add_city("Orgrimmar".to_string(), 4000);
+    faction.add_city("Thunder bluff".to_string(), 3000);
+
+    let json = faction.as_json().unwrap();
+
+    println!("{}", &json);
+
+    let mut f = std::fs::File::create("Faction.json").unwrap();
+    f.write(&json.as_bytes()).unwrap();
+    f.flush().unwrap();
 }
 
 fn serialize_to_file() {

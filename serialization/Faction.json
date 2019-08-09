@@ -1,0 +1,13 @@
+{
+  "name": "Horde",
+  "cities": [
+    {
+      "name": "Orgrimmar",
+      "population": 4000
+    },
+    {
+      "name": "Thunder bluff",
+      "population": 3000
+    }
+  ]
+}
