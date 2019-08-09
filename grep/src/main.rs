@@ -15,7 +15,7 @@ fn main() {
 
 fn grep_main() -> Result<(), Box<Error>> {
 
-    letgit mut args = std::env::args().skip(1);
+    let mut args = std::env::args().skip(1);
 
     let target = match args.next() {
         Some(s) => s,

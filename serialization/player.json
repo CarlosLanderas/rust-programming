@@ -1,0 +1,12 @@
+[
+  {
+    "location": "Wetlands",
+    "faction": "Horde",
+    "health": 80
+  },
+  {
+    "location": "Ironforge",
+    "faction": "Alliance",
+    "health": 100
+  }
+]
