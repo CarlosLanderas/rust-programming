@@ -2,11 +2,19 @@
   {
     "location": "Wetlands",
     "faction": "Horde",
-    "health": 80
+    "health": 80,
+    "weapon": {
+      "name": "Bastard Sword",
+      "damage": 200
+    }
   },
   {
     "location": "Ironforge",
     "faction": "Alliance",
-    "health": 100
+    "health": 100,
+    "weapon": {
+      "name": "Venom Bow",
+      "damage": 380
+    }
   }
 ]
