@@ -32,7 +32,7 @@ fn channel_test() {
 
     let (sender, receiver) = channel();
 
-    let mut message = Arc::new(Mutex::new("This is a secret message".to_string()));
+    let message = Arc::new(Mutex::new("This is a secret message".to_string()));
     let msg_ref = message.clone();
 
     thread::spawn(move || {
