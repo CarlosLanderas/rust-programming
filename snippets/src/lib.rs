@@ -11,3 +11,4 @@ pub mod io;
 pub mod iterators;
 pub mod operators;
 pub mod ops;
+pub mod channels;
