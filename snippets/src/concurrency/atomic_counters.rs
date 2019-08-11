@@ -21,14 +21,17 @@ fn atomic_bool_test() {
     atomic_cancel.swap(true, Ordering::SeqCst);
 }
 
+#[allow(dead_code)]
 fn long_running_task(id: usize, cancellation : &Arc<AtomicBool>) {
-
+    let mut counter = 0;
     loop {
 
         if cancellation.load(Ordering::SeqCst) {
             return;
         }
 
-        println!("Executing job in thread {}", id);
+        thread::sleep(Duration::from_millis(50));
+        counter +=1;
+        println!("Executing job {} in thread {}", counter, id);
     }
 }
