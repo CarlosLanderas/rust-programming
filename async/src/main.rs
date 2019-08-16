@@ -18,27 +18,37 @@ struct Todo {
     completed: bool,
 }
 
+#[derive(Deserialize, Debug)]
+struct Image {
+    #[serde(rename = "albumId")]
+    album_id : usize,
+    id: usize,
+    title: String,
+    url: String,
+    #[serde(rename = "thumbnailUrl")]
+    thumbnail_url: String
+}
+
+type ResponseResult<T> = Result<T, hyper::error::Error>;
 type HttpsConnector = hyper_rustls::HttpsConnector<hyper::client::HttpConnector>;
 
-struct RequestExecutor {
-    core: Core,
+struct RequestExecutor {    
     client: Client<HttpsConnector, Body>,
 }
 
 impl RequestExecutor {
-    pub fn new() -> RequestExecutor {
-        RequestExecutor {
-            core: Core::new().unwrap(),
+    pub fn new() -> RequestExecutor {        
+        RequestExecutor {            
             client: Client::builder().build(HttpsConnector::new(4)),
         }
-    }
-    #[cfg(feature = "rustls")]
-    type HttpsConnector = hyper_rustls::HttpsConnector<hyper::client::HttpConnector>;
-    pub fn get<S, T>(&mut self, url: S) -> Result<T, hyper::error::Error>
+    }    
+    
+    pub fn get<S, T>(&mut self, url: S) -> ResponseResult<T>
     where
         S: Into<String>,
         T: DeserializeOwned,
     {
+        
         let work = self
             .client
             .get(url.into().parse::<Uri>().unwrap())
@@ -51,23 +61,29 @@ impl RequestExecutor {
                     .map(move |chunks| serde_json::from_slice::<T>(&chunks).unwrap())
             });
 
-        self.core.run(work)
+        Core::new().unwrap().run(work)
     }
 }
 
 fn main() {
     let mut req_executor = RequestExecutor::new();
 
-    let result: Todo = req_executor
-        .get("https://jsonplaceholder.typicode.com/todos/12")
-        .unwrap();
+    let todo : ResponseResult<Todo> = req_executor.get("https://jsonplaceholder.typicode.com/todos/1");
+    let todo3 : ResponseResult<Todo>= req_executor.get("https://jsonplaceholder.typicode.com/todos/3");
+    let todo7 : ResponseResult<Todo> = req_executor.get("https://jsonplaceholder.typicode.com/todos/7");
+    let todo15 : ResponseResult<Todo> = req_executor.get("https://jsonplaceholder.typicode.com/todos/15");
+    
+    println!("{:?}", todo.unwrap());
+    println!("{:?}", todo3.unwrap());
+    println!("{:?}", todo7.unwrap());
+    println!("{:?}", todo15.unwrap());
 
-    println!("{:?}", result);
+    let photo10 : ResponseResult<Image> = req_executor.get("https://jsonplaceholder.typicode.com/photos/10");
+    let photo12 : ResponseResult<Image> = req_executor.get("https://jsonplaceholder.typicode.com/photos/12");
+    let photo20 : ResponseResult<Image> = req_executor.get("https://jsonplaceholder.typicode.com/photos/20");
 
-    let result2: Todo = req_executor
-        .get("https://jsonplaceholder.typicode.com/todos/12")
-        .unwrap();
-
-
-    println!("{:?}", result2);
+    println!("{:?}", photo10.unwrap());
+    println!("{:?}", photo12.unwrap());
+    println!("{:?}", photo20.unwrap());
+    
 }
