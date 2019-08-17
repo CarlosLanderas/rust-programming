@@ -4,7 +4,7 @@ use std::str::FromStr;
 
 #[derive(Debug)]
 pub struct Wallet {
-    amount: u64,
+    amount: f64,
     address: String,
 }
 
@@ -19,18 +19,24 @@ impl Display for ParseWalletFromString {
     }
 }
 
+impl Into<f64> for Wallet {
+    fn into(self)  -> f64 {
+        self.amount
+    }
+}
+
 impl std::error::Error for ParseWalletFromString {}
 
 impl FromStr for Wallet {
     type Err = ParseWalletFromString;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let mut split = s.split(";").collect::<Vec<_>>();
+        let split = s.split(";").collect::<Vec<_>>();
         let mut parts_iter = split.iter();
 
         if let Some(amount) = parts_iter.next() {
             if let Some(address) = parts_iter.next() {
-                if let Ok(v) = amount.parse::<u64>() {
+                if let Ok(v) = amount.parse::<f64>() {
                     return Ok(Wallet {
                         amount: v,
                         address: address.to_string(),
