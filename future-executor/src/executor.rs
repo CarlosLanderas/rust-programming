@@ -6,6 +6,7 @@ use {
     std:: {
         future::Future,
         sync::{Arc,Mutex},
+        task::{Context, Poll},
         sync::mpsc::{sync_channel, SyncSender, Receiver}
     }
 };
@@ -15,8 +16,31 @@ struct Task {
     task_sender: SyncSender<Arc<Task>>,
 }
 
+impl ArcWake for Task {
+    fn wake_by_ref(arc_self: &Arc<Self>) {
+        let cloned = arc_self.clone();
+        arc_self.task_sender.send(cloned).expect("too many tasks queued");
+    }
+}
+
 struct Executor {
     ready_queue: Receiver<Arc<Task>>,
+}
+
+impl Executor {
+    fn run(&self) {
+        while let Ok(task) = self.ready_queue.recv() {
+            let mut future_slot = task.future.lock().unwrap();
+            if let Some(mut future) = future_slot.take() {
+                let waker = waker_ref(&task);
+                let context = &mut Context::from_waker(&*waker);
+
+                if let Poll::Pending = future.as_mut().poll(context) {
+                    *future_slot = Some(future);
+                }
+            }
+        }
+    }
 }
 
 #[derive(Clone)]
