@@ -15,12 +15,24 @@ struct Post {
     completed: bool
 }
 
+#[derive(Deserialize, Debug)]
+struct User {
+    id: usize,
+    name: String,
+    username: String,
+    email: String,
+}
+
 fn main() {
     task::block_on(async {
         let post_fut  = surf::get("https://jsonplaceholder.typicode.com/todos/1").recv_json::<Post>();
         let post2_fut = surf::get("https://jsonplaceholder.typicode.com/todos/2").recv_json::<Post>();
-        let (result1, result2 ) = join!(post_fut, post2_fut);
+        let user_fut = surf::get("https://jsonplaceholder.typicode.com/users/9").recv_json::<User>();
+        let user2_fut = surf::get("https://jsonplaceholder.typicode.com/users/10").recv_json::<User>();
+        let (result1, result2, result3, result4) = join!(post_fut, post2_fut, user_fut, user2_fut);
         println!("{:?}", result1.unwrap());
         println!("{:?}", result2.unwrap());
+        println!("{:?}", result3.unwrap());
+        println!("{:?}", result4.unwrap());
     });
 }
