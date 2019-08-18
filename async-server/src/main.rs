@@ -16,8 +16,8 @@ async fn serve_req(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
 
     let url_str = "http://www.rust-lang.org/en-US/";
     let url = url_str.parse::<Uri>().expect("failed to parsel URL");
-
-    let res = Client::new().get(url);
+    println!("Making a request to: {}", url_str);
+    let res = Client::new().get(url).compat().await;
 
     Ok(Response::new(Body::from("hello, world!")))
 }
